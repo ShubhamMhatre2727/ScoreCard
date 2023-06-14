@@ -195,23 +195,24 @@ function checkWinner(){
     })
 }
 
-
 // =====================================================================================
 app.use(express.static('src'));
-app.get('/',(req, res)=>{
+app.get('/scoreboard',(req, res)=>{
     // score card
     return res.sendFile(getDir() + "/src/score_dashboard.html")
 })
 
-app.get('/loader', (req, res)=>{
+app.get('/', (req, res)=>{
     // scorer
-    return res.sendFile(getDir() + "/src/loader.html")
+    db.each('SELECT * FROM teams', (error)=>{
+        if(error){
+            return res.sendFile(getDir() + "/src/loader.html")
+        }else{
+            return res.sendFile(getDir() + "/src/admin.html")
+        }
+    })
 })
 
-app.get('/admin', (req, res)=>{
-    // scorer
-    return res.sendFile(getDir() + "/src/admin.html")
-})
 
 server.listen(PORT, ()=>{
     console.log(`Listening on http://localhost:${PORT}`);
@@ -224,7 +225,6 @@ server.listen(PORT, ()=>{
 // Socket.io
 
 io.on('connection', (socket)=>{
-
     socket.on('upload teams data',(data)=>{
         db.run('CREATE TABLE IF NOT EXISTS teams(id int primary key not null, name varchar(20), toss boolean, batting boolean, overs int, oversPlayed int, runs int, target int)', (error)=>{
             if(error) console.log(error);

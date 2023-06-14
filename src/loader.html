@@ -37,6 +37,8 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
+        const socket = io.connect();
+        socket.emit('refresh');
         function uploadData(){
             event.preventDefault();
 
@@ -66,7 +68,7 @@
             socket.emit('upload teams data', data);
 
             socket.on('go to admin',()=>{
-                document.location = '/admin';
+                document.location = '/';
             })
         }
     </script>

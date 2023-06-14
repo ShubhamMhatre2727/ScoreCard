@@ -111,7 +111,7 @@ socket.on('match title', (title)=>{
 })
 
 socket.on('go to loader',()=>{
-    document.location = '/loader'
+    document.location = '/'
 })
 
 
