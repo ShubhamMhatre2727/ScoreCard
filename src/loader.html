@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="loader.css">
+</head>
+<body>
+    <form class="body" onsubmit="uploadData()">
+        <section>
+            <h3>Team Information</h3>
+            <label for="team1">Team 1: <input required type="text" name="team1" id="team1Name"></label>
+            <br>
+            <label for="team2">Team 2: <input required type="text" name="team2" id="team2Name"></label>
+        </section>
+
+        <section>
+            <h3>Toss Winner</h3>
+            <label  id="team1"><input required type="radio" name="toss" id="Tteam1"> Team1</label>
+            <label  id="team2"><input required type="radio" name="toss" id="Tteam2"> Team2</label>
+        </section>
+
+        <section>
+            <h3>Batting Team</h3>
+            <label id=""><input required type="radio" name="batting" id="Bteam1"> Team1</label>
+            <label id=""><input required type="radio" name="batting" id="Bteam2"> Team2</label>
+        </section>
+
+        <section>
+            <h3>No. of Overs <input required type="number" id="overs"></h3>
+        </section>
+
+        <input type="submit" value="upload">
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        function uploadData(){
+            event.preventDefault();
+
+            const T1 = document.getElementById('team1Name').value;
+            const T2 = document.getElementById('team2Name').value;
+            const overs = document.getElementById('overs').value;
+
+            var tossWinner;
+            if(document.getElementById('Tteam1').checked==true){
+                tossWinner = 1;
+            }else{
+                tossWinner = 2;
+            }
+
+            var battingTeam;
+            if(document.getElementById('Bteam1').checked == true){
+                battingTeam = 1
+            }else{
+                battingTeam = 2
+            }
+
+            var data = {}
+            data['team1'] = [1, T1, (tossWinner==1)?true:false, (battingTeam==1)?true:false, overs, null, null, null]
+            data['team2'] = [2, T2, (tossWinner==2)?true:false, (battingTeam==2)?true:false, overs, null, null, null];
+            console.log(data);
+            const socket = io.connect();
+            socket.emit('upload teams data', data);
+
+            socket.on('go to admin',()=>{
+                document.location = '/admin';
+            })
+        }
+    </script>
+</body>
+</html>

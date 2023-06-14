@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="score_dashboard.css">
+    <title>Score Board</title>
+</head>
+<body>
+    <div class="score-board">
+
+        <!-- Score -->
+        <div class="score">
+          <div class="run-wicket-over">
+            <h2 class="run-wicket" id="run-wicket">
+              00 - 0
+            </h2>
+            <h2 class="over" id="over">
+              0.0
+            </h2>
+          </div>
+          <div class="status" id="title">#Team1vsTeam2</div>
+        </div>
+    
+        <!-- Batsman -->
+        <div class="batsman">
+          <div class="player1" id="player1">
+            <h3 id="player1Name">Player1</h3> <span><h2>0</h2><p>0</p></span>
+          </div>
+          <div class="player2" id="player2">
+            <h3 id="player2Name">Player2</h3> <span><h2>0</h2><p>0</p></span>
+          </div>
+        </div>
+    
+        <!-- Toss -->
+        <div class="toss" id="toss-rr">
+          <h4>CRR</h4>
+          <h3>0.00</h3>
+        </div>
+    
+        <!-- Bowler -->
+        <div class="bowling">
+          <div class="bowler" id="bowler">
+            <h3 id="bowlerName">Bowler</h3> <span id="bowlerStatus"><h3>0-0</h3><p>0.0</p></span>
+          </div>
+          <div class="balls" id="balls">
+          </div>
+        </div>
+    
+      </div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="score_dashboard.js"></script>
+</body>
+</html>

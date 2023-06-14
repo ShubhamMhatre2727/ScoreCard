@@ -1,0 +1,170 @@
+:root {
+    --Team1-color1: #ff1212;
+    --Team1-color2: #494949;
+    --Team1-font: #ffff;
+  
+    --Team2-color1: #00E6F5;
+    --Team2-color2: #E0BC3D;
+    --Team2-font: #0000;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* border: 1px solid black; */
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 1vw;
+  }
+
+  h2{
+    font-size: 1.6vw;
+  }
+
+  h3{
+    font-size: 1.4vw;
+  }
+
+  h4{
+    font-size: 1.2vw;
+  }
+  p{
+    font-size: 1vw;
+  }
+  
+  .score-board {
+    width: 60vw;
+    height: 12vh;
+  
+    position: absolute;
+    bottom: 10px;
+    margin-inline: 20vw;
+  
+    display: flex;
+  }
+  
+  /* Score ==================================================== */
+  .score {
+    height: 100%;
+    width: 25%;
+    color: var(--Team1-font);
+    background-color: var(--Team1-color2);
+    display: grid;
+  }
+  
+  .run-wicket-over {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .run-wicket,
+  .over,
+  .status {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+  }
+  
+  .run-wicket {
+    background-color: var(--Team1-color1);
+  }
+  
+  /* Batsman =========================================================== */
+  .batsman {
+    width: 30%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 50% 50%;
+  
+    background-color: var(--Team1-color1);
+    color: var(--Team1-font);
+  }
+  
+  .player1,
+  .player2 {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-content: center;
+    align-items: center;
+    padding-inline: 5px;
+    grid-template-columns: 75% 25%;
+  }
+
+  .batsman span{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  
+  /* Toss ================================================================*/
+  /* .score,
+  .batsman {
+    display: none;
+  } */
+  
+  .toss {
+    height: 100%;
+    /* aspect-ratio: 5 / 4; */
+    width: 10%;
+    display: grid;
+    place-items: center;
+  
+    background-color: var(--Team2-color2);
+  }
+  
+  /* Bowling ============================================================= */
+  .bowling{
+    width: 35%;
+    height: 100%;
+
+    display: grid;
+    grid-template-rows: 50% 50%;
+
+    padding-inline: 5px;
+
+    background-color: var(--Team2-color1);
+  }
+
+  .bowler{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 60% 40%;
+  }
+
+  .bowler span{
+    display: flex;
+    align-items: end;
+    justify-content: space-evenly;
+  }
+
+  .balls{
+    display: flex;
+    align-items: center;
+  }
+
+  .balls p{
+    height: 2vw;
+    aspect-ratio: 1 / 1;
+    display: grid;
+    place-items: center;
+    margin: 1px;
+
+    background-color: var(--Team2-color2);
+  }
+
+.balls .wicket{
+    background-color:white;
+    color: black;
+}
+.balls .boundary{
+    background-color: red;
+    color: white;
+}
+
+.balls .wide, .balls .no{
+  font-size: 12px;
+}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="admin.css">
+    <title>Scorer</title>
+</head>
+<body>
+    <div class="body">
+
+        <section class="run-score">
+            <div class="section-header">
+                <p id="match">Team1vsTeam2, 1st Inning</p>
+                <button  onclick="endInning()">end inning</button>
+                <button  onclick="endMatch()">end match</button>
+                <button onclick="clearData()">Clear Data</button>
+            </div>
+            <header id="match-result"></header>
+            <div>
+                <p id="teamData">Team 1/2: 0/0 (0)</p>
+                <p id="target-runRate"><span>CRR : 00.00</span></p>
+            </div>
+        </section>
+        
+        <section class="batting">
+            <div class="section-header">
+                <p>Batting</p>
+                <div class="runs">
+                    <p>R(B)</p>
+                    <p>4s</p>
+                    <p>6s</p>
+                    <p>SR</p>
+                </div>
+            </div>
+            <div>
+                <p class="striker"><input type="radio" checked id="batter1" name="striker"><input type="text" id="batter1Name" for="batter1" onblur="loadNames()" ></p>
+                <div class="runs" id="player1-runs">
+                    <p>0</p>
+                    <p>0</p>
+                    <p>0</p>
+                    <p>0.0</p>
+                </div>
+            </div>
+            <div>
+                <p class="non-striker"><input type="radio" id="batter2" name="striker"><input type="text" id="batter2Name" for="batter2" onblur="loadNames()"></p>
+                <div class="runs" id="player2-runs">
+                    <p>0</p>
+                    <p>0</p>
+                    <p>0</p>
+                    <p>0.0</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bowling">
+            <div class="section-header">
+                <p>Bowler</p>
+                <input type="text" id="bowlerName" onblur="loadNames()">
+            </div>
+            <div>
+                <div class="balls" id="balls">
+                    <!-- balls -->
+                </div>
+                <button onclick="popBall()"><img src="delete-icon.png" alt="delete"></button>
+            </div>
+        </section>
+
+        <section class="action-buttons">
+            <div class="run-btn">
+                <button onclick=addRun(0)>0</button>
+                <button onclick=addRun(1)>1</button>
+                <button onclick=addRun(2)>2</button>
+                <button onclick='addRun("nb")'>nb</button>
+                <button onclick=addRun(3)>3</button>
+                <button onclick=addRun(4)>4</button>
+                <button onclick=addRun(6)>6</button>
+                <button onclick="addRun('wd')">wd</button>
+            </div>
+            <div class="wicket-btn run-btn">
+                <button onclick="runOut(1)" id="out-1">wicket : P1</button>
+                <button onclick="runOut(2)" id="out-2">wicket : P2</button>
+            </div>
+        </section>
+
+        <div class="modal-no" id="modal-no">
+            <section class="action-buttons">
+                <div class="run-btn">
+                    <button onclick=addNoRun(0)>0</button>
+                    <button onclick=addNoRun(1)>1</button>
+                    <button onclick=addNoRun(2)>2</button>
+                    <button onclick='addNoRun("nb")'>nb</button>
+                    <button onclick=addNoRun(3)>3</button>
+                    <button onclick=addNoRun(4)>4</button>
+                    <button onclick=addNoRun(6)>6</button>
+                    <button onclick="addNoRun(0)">wd</button>
+                </div>
+                <div class="wicket-btn">
+                    <button onclick="runOut(1)" id="out-1">wicket : P1</button>
+                    <button onclick="runOut(2)" id="out-2"> wicket : P2</button>
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
