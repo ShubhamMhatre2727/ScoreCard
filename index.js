@@ -147,12 +147,12 @@ function overBalls(){
                         overs.push(res['runs'])
                     }
 
-                    io.emit('get bowler name')
+                    io.emit('get bowler name');
+                    io.emit('overData', overs)
                 }
             })
         })
         
-        db.wait(()=> overs.forEach((el)=> console.log('object '+el)));
 }
 
 function bowlerData(bowler){
