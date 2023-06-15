@@ -152,7 +152,7 @@ function overBalls(){
             })
         })
         
-        db.wait(()=> io.emit('overData', overs));
+        db.wait(()=> overs.forEach((el)=> console.log('object '+el)));
 }
 
 function bowlerData(bowler){
