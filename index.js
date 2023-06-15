@@ -216,6 +216,9 @@ app.get('/', (req, res)=>{
 
 server.listen(PORT, ()=>{
     console.log(`Listening on http://localhost:${PORT}`);
+    const _net = net['Wi-Fi'][1]['address'];
+    console.log(`Network: http://${_net}:${PORT}`);
+    // console.log(net);
 })
 
 // ======================================================================================
