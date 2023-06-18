@@ -37,10 +37,10 @@ function updateDB(){
 }
 
 function getMatchTitle(){
-    db.all('SELECT * FROM teams', (error, teams)=>{
+    db.all('SELECT * FROM teams ORDER BY toss DESC', (error, teams)=>{
         if(error) console.log(error);
         else{
-            io.emit('match title', `${teams[0]['name'].toUpperCase()}vs${teams[1]['name'].toUpperCase()}`)
+            io.emit('match title', [teams[0]['name'].toUpperCase(), teams[1]['name'].toUpperCase()])
         }
     })
 }
@@ -149,6 +149,7 @@ function overBalls(){
 
                     io.emit('get bowler name');
                     io.emit('overData', overs)
+                    io.emit('playing team', playingTeam)
                 }
             })
         })
@@ -202,6 +203,10 @@ app.get('/scoreboard',(req, res)=>{
     return res.sendFile(getDir() + "/src/score_dashboard.html")
 })
 
+app.get('/board', (req, res)=>{
+    return res.sendFile(getDir() + "/src/board.html");
+})
+
 app.get('/', (req, res)=>{
     // scorer
     db.each('SELECT * FROM teams', (error)=>{
@@ -243,7 +248,10 @@ io.on('connection', (socket)=>{
     })
 
     socket.on('get current score',()=>{
-        updateDB();
+        db.each('SELECT * FROM teams',(error, res)=>{
+            if(!error)
+                updateDB();
+        })
     })
 
     socket.on('refresh',()=> io.emit('refresh'))
@@ -314,7 +322,6 @@ io.on('connection', (socket)=>{
             })
     })
 
-    // socket.on('clear score',()=>{
-    //     destroyScore();
-    // })
+    socket.on('hide score',()=> io.emit('hide score'))
+    socket.on('keep score',()=> io.emit('keep score'))
 })

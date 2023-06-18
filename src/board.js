@@ -3,7 +3,8 @@ const socket = io.connect()
 socket.emit('get current score');
 
 socket.on('match title', (teams)=>{
-    document.getElementById('title').innerText = "#"+teams[0]+"vs"+teams[1];
+    document.getElementById('left-block').innerText = teams[0];
+    document.getElementById('right-block').innerText = teams[1];
 })
 
 var batter1, batter2, bowler;
@@ -40,11 +41,13 @@ socket.on('score update', (rows)=>{
 
     // setting over and ball
     document.getElementById('over').innerText = over + "."+ balls;
+
+    
 })
 
 socket.on('scoreData', (scoreData)=>{
     document.getElementById('run-wicket').innerText = scoreData['runs']+scoreData['extra'] + "-" + scoreData['wickets'];
-    document.getElementById('toss-rr').innerHTML = `<h4>CRR</h4><h3>${parseFloat((scoreData['runs']+scoreData['extra'])/(over + 1)).toFixed(2)}</h3>`
+    document.getElementById('match-status').innerHTML = ` RR ${parseFloat((scoreData['runs']+scoreData['extra'])/(over + 1)).toFixed(2)}`
 })
 
 socket.on('playersScore', ({p1, p2})=>{
@@ -55,23 +58,14 @@ socket.on('playersScore', ({p1, p2})=>{
     var p2Balls = (p2['0']?p2['0']:0) + (p2['1']?p2['1']:0) + (p2['2']?p2['2']:0) + (p2['3']?p2['3']:0) + (p2['4']?p2['4']:0) + (p2['6']?p2['6']:0);
 
     // setting player name, their strike, runs and balls
-    document.getElementById('player1').innerHTML = `<h3 id="player1Name">${batter1}</h3> <span><h2>${p1Runs}</h2><p>${p1Balls}</p></span>`
-    document.getElementById('player2').innerHTML = `<h3 id="player2Name">${batter2}</h3> <span><h2>${p2Runs}</h2><p>${p2Balls}</p></span>`
+    document.getElementById('player1').innerHTML = `<h3 class="player">${batter1}</h3><h3 class="status">${p1Runs} <span>${p1Balls}</span></h3>`
+    document.getElementById('player2').innerHTML = `<h3 class="player">${batter2}</h3><h3 class="status">${p2Runs} <span>${p2Balls}</span></h3>`
 })
 
 socket.on('overData', (balls)=>{
     var str = '';
     balls.forEach((ball)=>{
-        if(ball == 'wd')
-            str += `<p class="wide"><strong>${ball}</strong></p>`
-        else if(ball == '4' || ball == '6')
-            str += `<p class="boundary"><strong>${ball}</strong></p>`
-        else if(ball == 'W')
-            str += `<p class="wicket"><strong>${ball}</strong></p>`
-        else if(ball.includes('nb'))
-            str += `<p class="no"><strong>${ball}</strong></p>`
-        else
-            str += `<p><strong>${ball}</strong></p>`
+        str += `<div class="ball">${ball}</div>`
     })
 
     document.getElementById('balls').innerHTML = str;
@@ -87,10 +81,52 @@ socket.on('load names', (names)=>{
 socket.on('refresh',()=> document.location.reload())
 
 socket.on('match result', (res)=>{
-    document.getElementById('title').innerText = res;
+    document.getElementById('match-status').innerText = res;
 })
 
 socket.on('bowler data', (bowlerData)=>{
     console.log(bowlerData);
-    document.getElementById('bowler').innerHTML = `<h3 >${bowlerData['name']}</h3> <span><h3>${bowlerData['wickets']} - ${bowlerData['runs']}</h3><p>${bowlerData['balls']}</p></span>`
+    document.getElementById('bowler').innerHTML = `<h3 class="bowlerName" id="bowlerName">${bowlerData['name']}</h3><h3 class="status">${bowlerData['wickets']} - ${bowlerData['runs']}<span> ${bowlerData['balls']}</span></h3>`
+})
+
+socket.on('playing team', (playingTeam)=>{
+    console.log(playingTeam);
+    if(playingTeam['batting']){
+        document.getElementById('match-inning').innerText = '1st'
+    }else{
+        document.getElementById('match-inning').innerText = '2nd'
+    }
+    
+    if(playingTeam['target']){
+        document.getElementById('match-status').innerText = "TARGET : "+playingTeam['target']
+    }
+
+    document.getElementById('teamName').innerText = playingTeam['name'].substring(0,3).toUpperCase()
+
+})
+
+
+socket.on('hide score',()=>{
+    const el = document.getElementById('body')
+    if(window.getComputedStyle(el).visibility !== "hidden"){
+        el.style.visibility = 'hidden';
+    }else{
+        el.style.visibility = 'visible';
+    }
+})
+
+socket.on('keep score', ()=>{
+    if(window.getComputedStyle(document.getElementById('background')).visibility !== "hidden"){
+        document.getElementById('background').style.visibility = 'hidden'
+        document.getElementById('side-left').style.visibility = 'hidden'
+        document.getElementById('side-right').style.visibility = 'hidden'
+        document.getElementById('left-block').style.visibility = 'hidden'
+        document.getElementById('right-block').style.visibility = 'hidden'
+    }else{
+        document.getElementById('background').style.visibility = 'visible'
+        document.getElementById('side-left').style.visibility = 'visible'
+        document.getElementById('side-right').style.visibility = 'visible'
+        document.getElementById('left-block').style.visibility = 'visible'
+        document.getElementById('right-block').style.visibility = 'visible'
+    }
 })

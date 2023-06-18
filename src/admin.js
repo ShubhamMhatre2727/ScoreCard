@@ -106,8 +106,8 @@ socket.on('match result', (res)=>{
     // console.log(res);
 })
 
-socket.on('match title', (title)=>{
-    document.getElementById('match-result').innerHTML = title;
+socket.on('match title', (teams)=>{
+    document.getElementById('match-result').innerHTML = teams[0]+"vs"+teams[1];
 })
 
 socket.on('go to loader',()=>{
@@ -235,4 +235,13 @@ function popBall(){
 
 function clearData(){
     socket.emit('destroy tables');
+}
+
+function hideScore(){
+    console.log('object');
+    socket.emit('hide score')
+}
+
+function onlyScore(){
+    socket.emit('keep score');
 }

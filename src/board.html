@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira:wght@700&display=swap" rel="stylesheet">
+    <style>
+        *{
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: rgba(207,219,224,255);
+        }
+        body{
+            background-color: green;
+        }
+        section{
+            width: 100vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            position: absolute;
+            bottom: 35px;
+        }
+
+        .left-block, .right-block{
+            height: 70px;
+            width: 8%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-weight: bold;
+            color: rgba(201,218,212,255);
+
+            font-size: 1vw;
+        }
+        .left-block{
+            background-color: rgba(17,120,221,255);
+            border: 2px solid rgba(145,194,241,255);
+            border-radius: 0% 25% 25% 0% / 50% 50% 50% 50% ;
+        }
+        .right-block{
+            background-color: rgba(12,79,185,255);
+            border: 2px solid rgba(183,86,92,255);
+            border-radius: 25% 0% 0% 25% / 50% 0% 0% 50% ;
+        }
+
+        .side-left, .side-right{
+            width: 32%;
+            height: 40px;
+            border-radius: 20px;
+            font-size: 1.4vw;
+        }
+        .side-left{
+            display: flex;
+            
+        }
+        .side-right{
+            background-color: rgba(12,79,185,255);
+            border: 2px solid rgba(183,86,92,255);
+            display: flex;
+            align-items: center;
+        }
+        .side-right .seperator{
+            color: rgba(183,86,92,255);
+        }
+
+        .batter1, .batter2{
+            background-color: rgba(17,120,221,255);
+            border: 2px solid rgba(145,194,241,255);
+            border-radius: 20px;
+            padding-inline: 3%;
+        }
+        .batter1, .batter2, .bowler{
+            width: 50%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            align-items: center;
+        }
+        .batter1 span, .batter2 span, .bowler span{
+            font-size: 1.2vw;
+        }
+
+        .bowler, .balls{
+            padding-inline: 2%;
+        }
+        .balls{
+            width: auto;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .ball{
+            font-size: .9vw;
+            width: 1.6vw;
+            aspect-ratio: 1 / 1;
+            margin-inline: 1.5px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background-color: aliceblue;
+            color: black;
+        }
+
+        .main-block{
+            width: 20%;
+            height: 70px;
+            background-color: rgba(43,111,150,255);
+            border: 2px solid rgba(134,207,188,255);
+            border-radius: 17px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            font-size: 1.2vw;
+            font-weight: bold;
+        }
+        .main-block .upper{
+            width: 100%;
+            height: 40px;
+            background-color: rgba(194,230,228,255);
+            border-radius: 15px;
+            border: 2px solid rgba(194,230,228,255);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .main-block .upper .inning{
+            width: 80%;
+            height: 100%;
+            background-color: rgb(218, 199, 0);
+            color: black;
+            display: flex;
+            border-radius: 20px;
+            align-items: center;
+            font-size: 10px;
+        }
+        .main-block .upper span{
+            color: black;
+            padding-inline-end: 5%;
+        }
+        .main-block .upper .inning .score{
+            height: 100%;
+            width: 100%;
+            background-color: rgba(15,26,56,255);
+            border-radius: 17px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            
+            padding-inline: 5%;
+        }
+
+        h1{
+            font-size: 2.4vw;
+            transform: scale(1.1,.7);
+            font-family: 'Saira', sans-serif;
+        }
+        h2{
+            font-size: 1.2vw;
+        }
+
+        .background{
+            background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(13,30,80,1) 50%, rgba(0,63,120,1) 100%);
+            width: 100%;
+            height: 75px;
+            position: absolute;
+            top: 30px;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body id="body">
+    <section>
+        <div class="left-block" id="left-block">
+            
+        </div>
+        <div class="side-left" id="side-left">
+            <div class="batter1" id="player1">
+                <h3 class="player" id="player1Name"></h3>
+                <h3 class="status">0 <span>0</span></h3>
+            </div>
+            <div class="batter2" id="player2">
+                <h3 class="player" id="player2Name"></h3>
+                <h3 class="status">0 <span>0</span></h3>
+            </div>
+        </div>
+        <div class="main-block">
+            <div class="upper">
+                <div class="inning">
+                    <div class="score">
+                        <h2 id="teamName"></h2>
+                        <h1 id="run-wicket">0 - 0</h1>
+                    </div>
+                     <span id="match-inning"></span>
+                </div>
+                <span id="over">0.0</span>
+            </div>
+            <div class="lower" id="match-status">
+
+            </div>
+        </div>
+        <div class="side-right" id="side-right">
+            <div class="bowler" id="bowler">
+                <h3 class="bowlerName" id="bowlerName"></h3>
+                <h3 class="status">0-0 <span>0.0</span></h3>
+            </div>
+            <span class="seperator">|</span>
+            <div class="balls" id="balls"></div>
+        </div>
+        <div class="right-block" id="right-block">
+            
+        </div>
+        <div class="background" id="background"></div>
+    </section>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="board.js"></script>
+</body>
+</html>
